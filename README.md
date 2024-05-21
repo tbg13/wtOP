@@ -2,6 +2,8 @@
 
 ## High-Level Milestones
 
+NT = Non-Tech readers // T = Tech readers
+
 ### Infrastructure & Extraction
 
 **Set Up Containerized Environment**
