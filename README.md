@@ -79,6 +79,6 @@ Added benefit is separating storage layer and processing layer.
 
 1) Storage (Minio): Contains raw and cleaned (Silver) data.
 2) Extraction (Airbyte): Moves and parses data from Minio to DuckDB.
-3) Processing (DuckDB):
-3.a) Transformation (dbt): Performs data transformations within DuckDB.
+3) Processing (DuckDB):  
+3.a) Transformation (dbt): Performs data transformations within DuckDB.  
 3.b) Storage (DuckDB): Stores transformed (Gold) data within DuckDB.
