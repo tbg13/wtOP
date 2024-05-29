@@ -67,6 +67,7 @@ NT = Non-Tech readers // T = Tech readers
 
 ## Tech considerations
 - Why MinIO and DuckDB for storage ?
+  
 DuckDB's primary strength lies in its ability to handle in-process, high-perf analytics and querying. Storage is optimized for said purposes (columnar format), rather than raw data ingestion. This is where MinIO comes in: MinIO is designed for storing large amount of unstructured or semi-structured data (object storage)
 
 MinIO handles long-term storage of large (silver) datasets : it is responsible for scability and durability. 
@@ -75,6 +76,7 @@ DuckDB handles data transformation and analytics-ready dataset : it is responsib
 Added benefit is separating storage layer and processing layer.
 
 - How do MinIO and DuckDB work together then ?
+- 
 1) Storage (Minio): Contains raw and cleaned (Silver) data.
 2) Extraction (Airbyte): Moves and parses data from Minio to DuckDB.
 3) Processing (DuckDB):
