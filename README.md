@@ -76,7 +76,7 @@ DuckDB handles data transformation and analytics-ready dataset : it is responsib
 Added benefit is separating storage layer and processing layer.
 
 - How do MinIO and DuckDB work together then ?
-- 
+
 1) Storage (Minio): Contains raw and cleaned (Silver) data.
 2) Extraction (Airbyte): Moves and parses data from Minio to DuckDB.
 3) Processing (DuckDB):
