@@ -16,7 +16,7 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 RUN pip install --upgrade pip && pip install \
 fastapi \
-beautifulsoup4
+bs4 beautifulsoup4 requests html5lib
 
 EXPOSE 3000 8000
 
