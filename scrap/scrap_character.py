@@ -1,6 +1,9 @@
 ### Workflow
 import requests, re, json
 from bs4 import BeautifulSoup 
+from datetime import datetime
+
+from meta import category_mappings, list_of_characters, append_to_json
 
 ## A) Scrape https://onepiece.fandom.com/wiki/List_of_Canon_Characters for list of links towards all canon characters
 
@@ -168,31 +171,24 @@ def transform_json(character_name, data, mappings):
     
     return normalized_data
 
-# Args
-character_name = "Crocodile"
-category_mappings = {
-    "appearance": ["Appearance", "Appearances", "Looks"],
-    "personality": ["Personality", "Character"],
-    "abilities_and_powers": ["Abilities and Powers", "Abilities", "Powers"],
-    "devil_fruit": ["Devil Fruit"],
-    "anime_only_techniques": ["Anime-Only Techniques"],
-    "weapons": ["Weapons"],
-    "haki": ["Haki"],
-    "history": ["History"],
-    "wano_country_arc": ["Wano Country Arc"],
-    "major_battles": ["Major Battles"],
-    "references": ["References"]
-}
+def scrap_character(character_name, category_mappings):
+    character_url = f"https://onepiece.fandom.com/wiki/{character_name}"
+    
+    r = requests.get(character_url) 
+    soup = BeautifulSoup(r.content, 'html5lib')
+    print(f'{character_name}: scrapped')
+    
+    toc_pattern = re.compile(r'toclevel-1.*')
+    tocs = soup.find_all("li", class_=toc_pattern)
+    toc_data = toc_to_json(tocs)
+    content_data = enrich_toc(toc_data, soup)
+    normalized_json = transform_json(character_name, content_data, category_mappings)
+    print(f'{character_name}: cleaned and normalized')
+    
+    character_data = {f'character_name': normalized_json, 'scrap_datetime': datetime.now().isoformat()}
+    append_to_json('data/characters.json', character_data)
+    print(f'{character_name}: added to character_json')
 
-# Execution
-character_url = f"https://onepiece.fandom.com/wiki/{character_name}"
-r = requests.get(character_url) 
-soup = BeautifulSoup(r.content, 'html5lib')
-
-toc_pattern = re.compile(r'toclevel-1.*')
-tocs = soup.find_all("li", class_=toc_pattern)
-toc_data = toc_to_json(tocs)
-content_data = enrich_toc(toc_data, soup)
-
-normalized_json = transform_json(character_name, content_data, category_mappings)
-print(json.dumps(normalized_json, indent=3))
+    #print(json.dumps(normalized_json, indent=3))
+    
+scrap_character('Crocodile', category_mappings)
