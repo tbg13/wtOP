@@ -15,7 +15,7 @@ RUN python3 -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
 RUN pip install --upgrade pip && pip install \
-fastapi \
+fastapi uvicorn[standard] \
 bs4 beautifulsoup4 requests html5lib
 
 EXPOSE 3000 8000
