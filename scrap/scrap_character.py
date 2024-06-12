@@ -3,7 +3,7 @@ import requests, re, json
 from bs4 import BeautifulSoup 
 from datetime import datetime
 
-from scrap.scrap_meta import category_mappings, list_of_characters, append_to_json
+from scrap_meta import category_mappings, list_of_characters, append_to_json
 
 ## A) Scrape https://onepiece.fandom.com/wiki/List_of_Canon_Characters for list of links towards all canon characters
 
@@ -186,7 +186,9 @@ def scrap_character(character_name, category_mappings):
     print(f'{character_name}: cleaned and normalized')
     
     character_data = {f'character': normalized_json, 'scrap_datetime': datetime.now().isoformat()}
-    append_to_json('data/characters.json', character_data)
+    append_to_json('data/history_characters.json', character_data, overwrite=False)
+    append_to_json('data/latest_characters.json', character_data, overwrite=True)
+
     print(f'{character_name}: added to character_json')
 
     #print(json.dumps(normalized_json, indent=3))

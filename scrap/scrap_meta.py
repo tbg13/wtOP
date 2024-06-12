@@ -16,14 +16,25 @@ list_of_characters = []
 
 import json
 
-def append_to_json(file_path, data):
+def append_to_json(file_path, data, overwrite=False):
     try:
-        with open(file_path, 'r+') as file: #open json in read/write
+        with open(file_path, 'r+') as file:
             existing_data = json.load(file)
-            existing_data.append(data)
-            file.seek(0) #ensures updated data overwrites old data, without it updated data is appended after old data > duplicates everything
+            
+            if overwrite:
+                # Find and replace the existing entry with the same key
+                for i, entry in enumerate(existing_data):
+                    if entry['character']['name'] == data['character']['name']:
+                        existing_data[i] = data
+                        break
+                else:
+                    existing_data.append(data)  # If not found, append as new data
+            else:
+                existing_data.append(data)
+            
+            file.seek(0)  # Move the cursor to the start of the file
+            file.truncate()  # Clear the file content
             json.dump(existing_data, file, indent=3)
-    except FileNotFoundError: #when the file doesn't exist
+    except FileNotFoundError:
         with open(file_path, 'w') as file:
             json.dump([data], file, indent=3)
-            
