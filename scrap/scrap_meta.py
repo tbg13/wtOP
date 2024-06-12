@@ -14,27 +14,31 @@ category_mappings = {
 
 list_of_characters = []
 
-import json
+import json, os
 
 def append_to_json(file_path, data, overwrite=False):
     try:
+        if not os.path.exists(file_path):
+            raise FileNotFoundError
+        
         with open(file_path, 'r+') as file:
             existing_data = json.load(file)
             
+            character_name = data['character']['name'].lower() #super important to lower for future usage in api !!
+            
             if overwrite:
-                # Find and replace the existing entry with the same key
-                for i, entry in enumerate(existing_data):
-                    if entry['character']['name'] == data['character']['name']:
-                        existing_data[i] = data
-                        break
-                else:
-                    existing_data.append(data)  # If not found, append as new data
+                # Replace the existing entry with the same key
+                existing_data[character_name] = data
             else:
-                existing_data.append(data)
+                if character_name in existing_data:
+                    raise ValueError(f"Character {character_name} already exists. Use overwrite=True to replace.")
+                else:
+                    existing_data[character_name] = data
             
             file.seek(0)  # Move the cursor to the start of the file
             file.truncate()  # Clear the file content
             json.dump(existing_data, file, indent=3)
     except FileNotFoundError:
+        character_name = data['character']['name'].lower() # lower key; edge case when creating new file
         with open(file_path, 'w') as file:
-            json.dump([data], file, indent=3)
+            json.dump({character_name: data}, file, indent=3)

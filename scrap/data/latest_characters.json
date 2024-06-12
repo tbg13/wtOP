@@ -1,5 +1,5 @@
-[
-   {
+{
+   "crocodile": {
       "character": {
          "name": "Crocodile",
          "overview": {},
@@ -275,6 +275,6 @@
             ]
          }
       },
-      "scrap_datetime": "2024-06-12T21:02:06.684350"
+      "scrap_datetime": "2024-06-12T21:46:22.397399"
    }
-]
+}
