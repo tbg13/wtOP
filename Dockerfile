@@ -6,7 +6,8 @@ RUN apk update && apk add --no-cache \
 vim \
 bash \
 python3 \
-py3-pip
+py3-pip \
+wget
 
 WORKDIR /app
 
@@ -18,6 +19,13 @@ RUN pip install --upgrade pip && pip install \
 fastapi uvicorn[standard] \
 bs4 beautifulsoup4 requests html5lib
 
-EXPOSE 3000 8000
+# Install MinIO server and client
+RUN wget https://dl.min.io/server/minio/release/linux-amd64/minio && \
+    wget https://dl.min.io/client/mc/release/linux-amd64/mc && \
+    chmod +x minio mc && \
+    mv minio /usr/local/bin/ && \
+    mv mc /usr/local/bin/
 
-CMD ["bash"]
+EXPOSE 3000 8000 9000
+
+CMD ["sh", "-c", "minio server /app/minio & tail -f /dev/null"]

@@ -5,7 +5,8 @@ docker build -t wtop_image .
 ## Launch container
 docker stop wtop_container
 docker remove wtop_container
-docker run -d -it -p 3000:3000 -p 8000:8000 -v "$(pwd):/app" --name wtop_container wtop_image
+docker run -d -it -p 3000:3000 -p 8000:8000 -p 9000:9000 -v "$(pwd):/app" -e MINIO_ROOT_USER=minioadmin -e MINIO_ROOT_PASSWORD=minioadmin --name wtop_container wtop_image
+
 
 ## CD into container
 docker exec -it wtop_container /bin/bash

@@ -1,3 +1,10 @@
 fastapi/__pycache__
-.env
 scrap/__pycache__/
+minio/.minio.sys/
+
+.env
+
+# Ignore other temporary or build files
+*.log
+*.tmp
+*.bak
