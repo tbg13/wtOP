@@ -1,0 +1,28 @@
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - api-data:/app/scrap/data
+
+  main:
+    build:
+      context: ./main
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+      - "9000:9000"
+    volumes:
+      - minio-data:/app/minio
+      - duck-db:/app/duckdb/data
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+      
+volumes:
+  api-data:
+  minio-data:
+  duck-db:

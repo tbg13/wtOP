@@ -1,6 +1,6 @@
-fastapi/__pycache__
-scrap/__pycache__/
-minio/.minio.sys/
+api/fastapi/__pycache__
+api/scrap/__pycache__/
+main/minio/.minio.sys/
 
 fastapi\api_dev.ipynbclean
 scrap\scrap_dev.ipynb
