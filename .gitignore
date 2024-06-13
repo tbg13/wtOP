@@ -2,7 +2,7 @@ fastapi/__pycache__
 scrap/__pycache__/
 minio/.minio.sys/
 
-fastapi\api_dev.ipynb
+fastapi\api_dev.ipynbclean
 scrap\scrap_dev.ipynb
 
 .env

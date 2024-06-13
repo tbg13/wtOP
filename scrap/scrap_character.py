@@ -5,24 +5,7 @@ from datetime import datetime
 
 from scrap_meta import category_mappings, list_of_characters, append_to_json
 
-## A) Scrape https://onepiece.fandom.com/wiki/List_of_Canon_Characters for list of links towards all canon characters
-
-## B) Get rid of the fluff and save the html output for caching purposes (no overloading)
-
-## C) Scrape page as json based on Content
-### 1 Appearance
-### 2 Personality
-### 3 Abilities and Powers | Abilities | Power
-### 4 History
-### 5 References
-
-## C) Scrape for the Statistics and Devil Fruit informations (pi-items)
-
-#Test run with Alpaca
-
-
-#print(soup.div)
-#Todo: Add some logging / wait time
+#TODO: Add some logging / wait time
 
 def toc_to_json(tocs):
     """
