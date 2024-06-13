@@ -84,6 +84,7 @@ def extract_text_with_spacing(element):
     text = re.sub(r'\s+', ' ', text).strip()
     
     return text
+
 def enrich_toc(toc_data, soup):
     content_data = []
     for item in toc_data: 
@@ -131,6 +132,7 @@ def normalize_key(key, mappings):
         if key in synonyms:
             return standard
     return key.lower().replace(" ", "_")  # default conversion for unmapped categories
+
 def process_item(item, mappings):
     category_name = normalize_key(item['name'], mappings)
     content = item.get("content", "").strip()
@@ -151,6 +153,7 @@ def process_item(item, mappings):
                 processed.append({subcat_name: subcat_content})
     
     return processed
+
 def transform_json(character_name, data, mappings):
     normalized_data = {
         "name": f"{character_name}",
