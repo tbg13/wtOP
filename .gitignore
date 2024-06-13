@@ -2,6 +2,9 @@ fastapi/__pycache__
 scrap/__pycache__/
 minio/.minio.sys/
 
+fastapi\api_dev.ipynb
+scrap\scrap_dev.ipynb
+
 .env
 
 # Ignore other temporary or build files
