@@ -14,3 +14,7 @@ docker exec -it wtop_container /bin/bash
 ### Since using container, need to tell fastapi to listen to all IP addresses from container
 fastapi dev main.py --host 0.0.0.0 --port 8000
 ### Then access from browser at http://127.0.0.1:8000
+
+apk add curl
+curl -s -o- https://raw.githubusercontent.com/airbytehq/airbyte/master/octavia-cli/install.sh | bash 
+# link returns 404 ???
