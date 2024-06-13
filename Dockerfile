@@ -11,7 +11,7 @@ RUN apk update && apk add --no-cache \
     openjdk11-jre \
     build-base \
     libpq-dev \
-    git \
+    git
 
 WORKDIR /app
 
