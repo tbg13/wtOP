@@ -45,12 +45,11 @@ class MinIOStorage(StorageInterface):
             source_file, "successfully downloaded as object", 
             "to bucket", bucket_name, "and path", destination
         )
-        
+
     def list_files(self, bucket_name, path):
         self.helper_check_bucket(self, bucket_name)
         objects = self.client.list_objects(bucket_name, suffix = path)
         return [obj.object_name for obj in objects]
-
 
     def delete(self, bucket_name, file_path):
         self.client.remove_object(bucket_name, file_path)
