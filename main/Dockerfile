@@ -14,6 +14,7 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 # Install Python dependencies
 RUN pip install --upgrade pip setuptools wheel && pip install \
+    dagster dagit \
     dbt-core dbt-duckdb duckdb
 
 # Install MinIO server and client
