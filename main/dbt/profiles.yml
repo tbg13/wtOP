@@ -1,0 +1,9 @@
+api_transformations:
+  target: 
+    dev
+  outputs:
+    dev:
+      type:
+        duckdb
+      path:
+        "../duckdb/database.duckdb"
