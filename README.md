@@ -6,7 +6,7 @@ The goal of this project is to learn, train and showcase the 2 main skills Data 
 
 The first point is all about infrastructure : api management, databases, self-service analytics, etc.
 
-The second point is about the data itself : extracting, loading, transforming, cleaning, checking, validating, duplicating, managing workflows ...
+The second point is about extracting value : extracting, loading, transforming, cleaning, checking, validating, duplicating, managing workflows, etc.
 
 The following project has 3 modules for the time being:
 1) Extracting : scrapping and API
