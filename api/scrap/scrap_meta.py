@@ -24,7 +24,7 @@ def append_to_json(file_path, data, overwrite=False):
         with open(file_path, 'r+') as file:
             existing_data = json.load(file)
             
-            character_name = data['character']['name'].lower() #super important to lower for future usage in api !!
+            character_name = data['character']['name'].lower() #important to lower for future usage in api !!
             
             if overwrite:
                 # Replace the existing entry with the same key

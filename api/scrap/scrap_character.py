@@ -26,7 +26,7 @@ def toc_to_json(tocs):
     for li in tocs:
         entry = {
             'name': li.find('span', class_='toctext').get_text(),
-            'children': toc_to_json(li.find('ul').find_all('li', recursive=False) if li.find('ul') else []) #recursive bs
+            'children': toc_to_json(li.find('ul').find_all('li', recursive=False) if li.find('ul') else []) #recursive
         }
         toc_data.append(entry)
     return toc_data
@@ -140,7 +140,7 @@ def process_item(item, mappings):
 def transform_json(character_name, data, mappings):
     normalized_data = {
         "name": f"{character_name}",
-        "overview": {},  # Add overview data when I come around to doing it, fckng done with scraping
+        "overview": {},  # Add overview data when I come around to doing it, done with scraping
         "details": {}
     }
     
@@ -176,7 +176,5 @@ def scrap_character(character_name, category_mappings):
     append_to_json('data/latest_characters.json', character_data, overwrite=True)
 
     print(f'{character_name}: added to character_json')
-
-    #print(json.dumps(normalized_json, indent=3))
     
 scrap_character('Crocodile', category_mappings)
