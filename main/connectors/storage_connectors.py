@@ -21,41 +21,43 @@ class MinIOStorage(StorageInterface):
         
     def helper_check_bucket(self, bucket_name):
         """Helper function to check if the target bucket exists. If not, create it."""
-        found = self.client.bucket_exists(bucket_name)
-        if not found:
+        bucket_exists = self.client.bucket_exists(bucket_name)
+        if not bucket_exists:
             self.client.make_bucket(bucket_name)
-            print('Create bucket', bucket_name)
+            print(f'Bucket {bucket_name} created.')
         else:
-            print('Bucket', bucket_name, 'found')
+            print(f'Bucket {bucket_name} already exists.')
         
-    def upload(self, source_file, bucket_name, destination):
-        self.helper_check_bucket(self, bucket_name)
-        self.client.fput_object(bucket_name, destination, source_file)
-        
-        print(
-            source_file, "successfully uploaded as object", 
-            "to bucket", bucket_name, "and path", destination
-        )
-
-    def download(self, source_file, bucket_name, destination):
-        self.helper_check_bucket(self, bucket_name)
-        self.client.fget_object(bucket_name, destination, source_file)
+    def upload(self, local_file_path, bucket_name, object_name):
+        """Uploads a file to MinIO."""
+        self.helper_check_bucket(bucket_name)
+        self.client.fput_object(bucket_name, object_name, local_file_path)
         
         print(
-            source_file, "successfully downloaded as object", 
-            "to bucket", bucket_name, "and path", destination
+            f"{local_file_path} successfully uploaded to bucket {bucket_name} as {object_name}"
         )
 
-    def list_files(self, bucket_name, path):
-        self.helper_check_bucket(self, bucket_name)
-        objects = self.client.list_objects(bucket_name, suffix = path)
+    def download(self, bucket_name, object_name, local_file_path):
+        """Downloads a file from MinIO."""
+        self.helper_check_bucket(bucket_name)
+        self.client.fget_object(bucket_name, object_name, local_file_path)
+        
+        print(
+            f"{object_name} successfully downloaded from bucket {bucket_name} to {local_file_path}"
+        )
+
+    def list_files(self, bucket_name, prefix):
+        """Lists files in a MinIO bucket with a specific prefix."""
+        self.helper_check_bucket(bucket_name)
+        objects = self.client.list_objects(bucket_name, prefix=prefix)
         return [obj.object_name for obj in objects]
 
-    def delete(self, bucket_name, file_path):
-        self.client.remove_object(bucket_name, file_path)
+    def delete(self, bucket_name, object_name):
+        """Deletes a file from MinIO."""
+        self.client.remove_object(bucket_name, object_name)
         
-        print(file_path, "successfully deleted from bucket", bucket_name)
-        
+        print(f"{object_name} successfully deleted from bucket {bucket_name}")
+
         
         
 #TODO: create class DuckDBStorage(StorageInterface) once to finish dagster worfklows for some transformations
